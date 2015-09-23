@@ -1,0 +1,15 @@
+{
+    "name": "artovenry/wphelpers",
+    "description": "Helper classes for Artovenry's wordpress site.",
+    "authors": [
+        {
+            "name": "artovenry",
+            "email": "artovenry@gmail.com"
+        }
+    ],
+    "autoload":{
+        "psr-4":{
+            "": "lib/"
+        }
+    }
+}
