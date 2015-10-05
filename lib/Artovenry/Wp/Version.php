@@ -1,6 +1,6 @@
 <?
-use Symfony\Component\Yaml\Yaml;
 namespace Artovenry\Wp;
+use Symfony\Component\Yaml\Yaml;
 
 abstract class Exception extends \Exception{
   function __construct($message=""){
@@ -15,13 +15,14 @@ class PluginNotFound extends Exception{}
 class Version{
   //You can only specify  "< > <= >= "as version comparator 
   const VERSION_FORMAT= "/^(>=|<=|>|<)?([0-9.]+)$/";
+  static $versions= [];
 
   static function run(){
     self::check();
   }
 
   private static function check(){
-    if(!defined(ART_VERSION_YAML) OR !is_readable(ART_VERSION_YAML))
+    if(!defined("ART_VERSION_YAML") OR !is_readable(ART_VERSION_YAML))
       throw new VersionNotSpecified("Yaml file not found.");
     self::$versions= $versions= Yaml::parse(file_get_contents(ART_VERSION_YAML));
     if(empty($versions["php"]["version"]))
