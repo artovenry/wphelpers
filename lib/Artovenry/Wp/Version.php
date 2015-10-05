@@ -75,7 +75,7 @@ class Version{
 
     $comparator= empty($matches[1]) ? "=" : $matches[1];
     $version= $matches[2];
-    if(!version_compare($GLOBALS["wp_version"], $version, $comparator))
+    if(!version_compare(PHP_VERSION, $version, $comparator))
       throw new VersionIsInvalid("Required PHP version is $comparator $version");
   }
 }
