@@ -18,7 +18,14 @@ class Version{
   static $versions= [];
 
   static function run(){
-    self::check();
+    add_action("template_redirect", function(){
+      self::check();
+    });
+    add_action("admin_init", function(){
+      self::check();
+    });
+
+
   }
 
   private static function check(){
