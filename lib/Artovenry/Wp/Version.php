@@ -48,7 +48,7 @@ class Version{
     $active_plugins= [];
     foreach(get_option("active_plugins") as $plugin){
       $active_plugins[dirname($plugin)]= $plugin;
-      if(!in_array(dirname[$plugin], array_keys(self::$versions["wordpress"]["plugins"])))
+      if(!in_array(dirname($plugin), array_keys(self::$versions["wordpress"]["plugins"])))
         throw new PluginNotAllowed("Plugin ** is not allowed to use.");
     }
 
