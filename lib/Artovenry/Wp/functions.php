@@ -5,7 +5,7 @@ function stylesheet_link_tag($name="", $media="screen"){
   $filename= $filename . $dev . ".css";
   $url= get_stylesheet_directory_uri() . "/css/$filename";
   $format= '<link rel="stylesheet" media="%s" href="%s">';
-  return sprinf($format, $media, $url);
+  return sprintf($format, $media, $url);
 }
 
 function javascript_include_tag($name=""){
@@ -14,7 +14,7 @@ function javascript_include_tag($name=""){
   $filename= $filename . $dev . ".js";
   $url= get_stylesheet_directory_uri() . "/js/$filename";
   $format= '<script type="text/javascript" src="%s"></script>';
-  return sprinf($format, $url);
+  return sprintf($format, $url);
 }
 
 
