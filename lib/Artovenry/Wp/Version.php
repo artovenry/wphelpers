@@ -47,20 +47,28 @@ class Version{
   private static function check_plugins_version(){
     $active_plugins= [];
     foreach(get_option("active_plugins") as $plugin){
-      $active_plugins[dirname($plugin)]= $plugin;
-      if(!in_array(dirname($plugin), array_keys(self::$versions["wordpress"]["plugins"])))
+      $key= dirname($plugin);
+      $plugins= self::$versions["wordpress"]["plugins"];
+
+      $active_plugins[$key]= $plugin;
+      if(!in_array($key, array_keys($plugins)))
         throw new PluginNotAllowed("Plugin $plugin  is not allowed to use.");
     }
-
+ 
     foreach(self::$versions["wordpress"]["plugins"] as $plugin_name=>$version){
+      if(is_array($version))$version= $version["version"];
       preg_match(self::VERSION_FORMAT, $version,$matches);
       if(empty($matches))throw new VersionOperatorIsInvalid;
 
       $comparator= empty($matches[1]) ? "=" : $matches[1];
       $version= $matches[2];
 
-      if(!in_array($plugin_name, array_keys($active_plugins)))
+      if(!in_array($plugin_name, array_keys($active_plugins))){
+        if(is_string($plugins[$key]) OR 
+          (is_array($plugins[$key]) AND $plugins[$key]["required"] === true)
+        )
         throw new PluginNotFound("Plugin $plugin_name is not found.");
+      }
 
       $plugin_version= get_plugin_data(WP_PLUGIN_DIR . "/" . $active_plugins[$plugin_name])["Version"];
 
