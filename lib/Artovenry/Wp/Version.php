@@ -62,14 +62,13 @@ class Version{
       preg_match(self::VERSION_FORMAT, $version,$matches);
       if(empty($matches))throw new VersionOperatorIsInvalid;
 
+      if(!$required)continue;
+
       $comparator= empty($matches[1]) ? "=" : $matches[1];
       $version= $matches[2];
 
-      if(!in_array($plugin_name, array_keys($active_plugins))){
-        if($required)
-          throw new PluginNotFound("Plugin $plugin_name is not found.");
-      }
-
+      if(!in_array($plugin_name, array_keys($active_plugins)))
+        throw new PluginNotFound("Plugin $plugin_name is not found.");
       $plugin_version= get_plugin_data(WP_PLUGIN_DIR . "/" . $active_plugins[$plugin_name])["Version"];
 
       if(!version_compare($plugin_version, $version, $comparator))
