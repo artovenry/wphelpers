@@ -56,7 +56,9 @@ class Version{
     }
  
     foreach(self::$versions["wordpress"]["plugins"] as $plugin_name=>$version){
+      $required= is_array($version)? $version["required"]? true;
       if(is_array($version))$version= $version["version"];
+
       preg_match(self::VERSION_FORMAT, $version,$matches);
       if(empty($matches))throw new VersionOperatorIsInvalid;
 
@@ -64,10 +66,8 @@ class Version{
       $version= $matches[2];
 
       if(!in_array($plugin_name, array_keys($active_plugins))){
-        if(is_string($plugins[$key]) OR 
-          (is_array($plugins[$key]) AND $plugins[$key]["required"] === true)
-        )
-        throw new PluginNotFound("Plugin $plugin_name is not found.");
+        if($required)
+          throw new PluginNotFound("Plugin $plugin_name is not found.");
       }
 
       $plugin_version= get_plugin_data(WP_PLUGIN_DIR . "/" . $active_plugins[$plugin_name])["Version"];
