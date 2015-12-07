@@ -56,7 +56,7 @@ class Version{
     }
  
     foreach(self::$versions["wordpress"]["plugins"] as $plugin_name=>$version){
-      $required= is_array($version)? $version["required"]? true;
+      $required= is_array($version)? $version["required"]: true;
       if(is_array($version))$version= $version["version"];
 
       preg_match(self::VERSION_FORMAT, $version,$matches);
