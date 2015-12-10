@@ -30,3 +30,11 @@ function remove_buildin_scripts(){
   remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );    
   remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
 }
+
+function remove_update_notifications(){
+  foreach(["core", "plugins", "themes"] as $item){
+    add_filter("pre_site_transient_update_{$item}"," __return_zero");
+    if($item !== "core")
+      remove_action("load-update-core.php", "wp_update_{$item}");
+  }
+}
