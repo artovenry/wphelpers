@@ -9,11 +9,9 @@
     ],
     "require": {
         "symfony/yaml": "^2.7.5",
-        "mthaml/mthaml": "^1.7"
     },
     "require-dev": {
         "symfony/yaml": "^2.7.5",
-        "mthaml/mthaml": "^1.7"
     },
     "autoload":{
         "psr-4":{
