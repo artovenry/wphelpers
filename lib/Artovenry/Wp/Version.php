@@ -19,9 +19,10 @@ class Version{
   static $versions= [];
 
   static function run(){
-    add_action("template_redirect", function(){
-      self::check();
-    });
+    //ONLY CHECK VERSIONS WITH LOGGED-IN
+    //add_action("template_redirect", function(){
+    //  self::check();
+    //});
     add_action("admin_init", function(){
       self::check();
     });
